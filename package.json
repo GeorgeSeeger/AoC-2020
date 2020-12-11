@@ -1,0 +1,12 @@
+{
+  "name": "adventofcode2020",
+  "version": "1.0.0",
+  "description": "",
+  "main": "runner.js",
+  "scripts": {  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.20"
+  }
+}

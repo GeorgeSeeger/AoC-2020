@@ -8,7 +8,7 @@ const rules = _.reduce(lines, (acc, rule) => {
     const colour = foo[0];
     const bags = foo[1].split(", ")
 
-    if (bags[0] === "no other bags.") {
+    if (bags[0].includes("no other bags.")) {
         acc[colour] = {}
     } else {
         acc[colour] = _.fromPairs(bags.map(numBag => {
@@ -45,4 +45,16 @@ function findAllBagsThatCanHold(colour) {
 const part1 = _.size(findAllBagsThatCanHold(shinyGold));
 console.log("part1: " + part1);
 
-findBagsThatDirectlyContain(shinyGold);
+function countBagsContainedBy(colour) {
+    const bagsInside = rules[colour];
+    if (_.isEmpty(bagsInside)) return 1;
+
+    const innerBagCount = _.map(bagsInside, (count, col) => {
+        return (+count) * countBagsContainedBy(col);
+    });
+    return 1 + _.sum(innerBagCount);
+}
+
+const part2 = countBagsContainedBy(shinyGold) - 1;
+
+console.log("part2: " + part2);

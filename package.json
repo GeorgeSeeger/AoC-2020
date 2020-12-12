@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "runner.js",
-  "scripts": {  },
+  "scripts": {},
   "author": "",
   "license": "ISC",
   "dependencies": {

@@ -1,0 +1,2 @@
+# don't want any CR in my input files
+.input text eol=lf

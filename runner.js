@@ -1,1 +1,1 @@
-require("./day09.js");
+require("./day10.js");

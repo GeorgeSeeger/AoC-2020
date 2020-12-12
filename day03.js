@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const fs = require("fs");
 
-var lines = fs.readFileSync("./day3.input", 'utf8')
+var lines = fs.readFileSync("./day03.input", 'utf8')
 .split('\n')
 const rep_length = lines[0].length;
 

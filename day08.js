@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const fs = require("fs");
 
-const lines = fs.readFileSync("./day8.input", 'utf8').trim().split("\n");
+const lines = fs.readFileSync("./day08.input", 'utf8').trim().split("\n");
 
 function makeInstrs(data) {
   return {

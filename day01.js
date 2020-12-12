@@ -2,7 +2,7 @@ const _ = require("lodash");
 const fs = require("fs");
 const { filter } = require("lodash");
 
-var lines = fs.readFileSync("./day1.input", 'utf8').split('\n').map(i => +i);
+var lines = fs.readFileSync("./day01.input", 'utf8').split('\n').map(i => +i);
 
 _.chain(lines).forEach(
     (val, ind, coll) => {

@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const fs = require("fs");
 
-const lines = fs.readFileSync("./day7.input", 'utf8').split("\n");
+const lines = fs.readFileSync("./day07.input", 'utf8').split("\n");
 
 const rules = _.reduce(lines, (acc, rule) => {
     const foo = rule.split(" bags contain ");

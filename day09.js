@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const fs = require("fs");
 
-const lines = fs.readFileSync("./day9.input", 'utf8').trim().split("\n").map(i => parseInt(i));
+const lines = fs.readFileSync("./day09.input", 'utf8').trim().split("\n").map(i => parseInt(i));
 const preamble = 25;
 
 const isValid = (val, index) => {

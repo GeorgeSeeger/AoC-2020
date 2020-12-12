@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const fs = require("fs");
 
-const lines = fs.readFileSync("./day4.input", 'utf8')
+const lines = fs.readFileSync("./day04.input", 'utf8')
                 .split("\n\n");
 
 const passports = lines.map(pp => _.fromPairs(pp.split(/[\s|\n]/).map(li => li.split(":"))))

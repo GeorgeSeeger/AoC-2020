@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const fs = require("fs");
 
-const lines = fs.readFileSync("./day6.input", 'utf8').split("\n\n");
+const lines = fs.readFileSync("./day06.input", 'utf8').split("\n\n");
 
 const part1 = _.chain(lines).map((group) => {
     return _.chain(group)

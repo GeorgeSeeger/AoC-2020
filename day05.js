@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const fs = require("fs");
 
-const lines = fs.readFileSync("./day5.input", 'utf8').split("\n");
+const lines = fs.readFileSync("./day05.input", 'utf8').split("\n");
 
 const rows = 127;
 const cols = 7;

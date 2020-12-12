@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const fs = require("fs");
 
-var lines = fs.readFileSync("./day2.input", 'utf8')
+var lines = fs.readFileSync("./day02.input", 'utf8')
 .split('\n')
 .map(i => i.split(/[-|:?\s]/));
 

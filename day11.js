@@ -8,7 +8,7 @@ const floor = ".";
 const empty = "L";
 const occpd = "#";
 
-function applyRules(seating) {
+function part1Rules(seating) {
     var newSeating = _.cloneDeep(seating);
 
     for (let r = 0; r < seating.length; r++) {
@@ -43,18 +43,64 @@ function applyRules(seating) {
     return newSeating;
 }
 
-const part1 = (function() {
+function solve(applyRules) {
     let current = initialSeating;
     let next = applyRules(current);
     while (!_.isMatch(current, next)) {
         current = next;
         next = applyRules(current);
-        // console.log(next.map(i => i.join("")).join("\n"));
-        // console.log("");
     } 
 
     return _.chain(next).flatten().countBy(s => s === occpd).value().true;
-})();
+}
+
+const part1 = solve(part1Rules);
 
 console.log("part1: " + part1);
 
+function part2Rules(seating) {
+    var newSeating = _.cloneDeep(seating);
+
+    for (let r = 0; r < seating.length; r++) {
+        for (let c = 0; c < seating[0].length; c++) {
+            
+            var seat = seating[r][c];
+            if (seat === floor) continue;
+            
+            var nearby = [];
+            var directions = [[1, 0], [1, 1], [0, 1], [-1, 1], [-1,0], [-1, -1], [0, -1], [1, -1]];
+            _.forEach(directions, dir => {
+                let i = r;
+                let j = c;
+                const move = () => { i += dir[0], j += dir[1]}
+                move();
+                while (0 <= i && i < seating.length && 0 <= j  && j < seating[0].length) {
+                    let seat = seating[i][j];
+                    if (seat === empty || seat === occpd) {
+                        nearby.push(seat);
+                        break;
+                    }
+                    move();
+                }
+            }) 
+
+
+            let nearbyOccupied = _.filter(nearby, s => s === occpd).length;
+            if (seat === empty) {
+                if (nearbyOccupied === 0) {
+                    newSeating[r][c] = occpd;
+                }
+            } else {
+                if (nearbyOccupied >= 5) {
+                    newSeating[r][c] = empty;
+                }
+            }
+        }
+    }
+
+    return newSeating;
+}
+
+const part2 = solve(part2Rules);
+
+console.log("part2: " + part2);

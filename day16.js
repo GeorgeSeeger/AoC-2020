@@ -18,9 +18,7 @@ const part1 = _.chain(lines[2].split("\n"))
         .slice(1)
         .map(l => l.trim().split(",").map(i => +i))
         .map(field => {
-          return _.filter(field, fv => _.every(rules, (rule, ruleName) => {
-            return !rule(fv);
-          }))
+          return _.filter(field, fv => _.every(rules, (rule) => !rule(fv)))
         })
         .flatten()
         .sum()
@@ -31,7 +29,7 @@ console.log("part1: " + part1);
 const validTickets = _.chain(lines[2].split("\n"))
 .slice(1)
 .map(l => l.trim().split(",").map(i => +i))
-.filter(field => _.every(field, fv => _.some(rules, (rule, ruleName) => rule(fv))))
+.filter(field => _.every(field, fv => _.some(rules, (rule) => rule(fv))))
 .value();
 
 // all possible index (0-19) as a starting point
@@ -39,21 +37,12 @@ const rulePositions = _.chain(rules).toPairs()
 .map((ruleArr, ind, coll) => [ruleArr[0], coll.map((r, i) => i)])
 .fromPairs().value();
 
-// invert the valid tickets to get one row of all field #0, then field #1 etc.
-let inverted = _.reduce(validTickets, (acc, ticket) => {
-    _.forEach(ticket, (fv, i) => {
-      if (!acc.hasOwnProperty(i)) acc[i] = [];
-      acc[i].push(fv);
-    })
-    return acc;
-  }, {})
-
 // then remove all the indexes from possible rule positions
 // where any values don't follow the rules
 _.forEach(rules, (rule, ruleName) => {
-  for (let i = 0; i < _.size(inverted); i++) {
-    if (_.some(inverted[i], j => !rule(j))) {
-      rulePositions[ruleName] = _.reject(rulePositions[ruleName], k => k === i); 
+  for (let i = 0; i < _.size(rules); i++) {
+    if (_.some(validTickets.map(t => t[i]), j => !rule(j))) {
+      _.pullAll(rulePositions[ruleName], [i]); 
     }
   }
 })
@@ -62,14 +51,14 @@ _.forEach(rules, (rule, ruleName) => {
 // and then if we have another that only has one possibility, remove *that* one etc.
 let skip = {};
 while (_.size(_.filter(rulePositions, v => v.length > 1))) {
-  let certainPositions = _.filter(_.toPairs(rulePositions), arr => arr[1].length === 1);
+  let certainPositions = _.filter(_.toPairs(rulePositions), rulePos => rulePos[1].length === 1 && !skip[rulePos[0]]);
   _.forEach(certainPositions, certainPosition => {
-    if (skip[certainPosition[0]]) return;
-
     _.forEach(rulePositions, (positions, ruleName) => {
       if (ruleName === certainPosition[0]) return;
-      rulePositions[ruleName] = _.reject(positions, k => k === certainPosition[1][0])
+
+      _.pullAll(positions, certainPosition[1])
     })
+
     skip[certainPosition[0]] = true;
   })
 }
